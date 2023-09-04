@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a2876de-0399-4745-ab01-365eacef3237" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Factory Pattern.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FactoryPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryPattern.java" afterDir="false" />
+    <list default="true" id="6a2876de-0399-4745-ab01-365eacef3237" name="变更" comment="工厂模式">
+      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/Abstract Factory Pattern.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/AbstractFactoryPattern.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +27,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="2f635424-3830-40eb-bfde-3173fb9b86bb" />
+        <option name="url" value="https://github.com/eternalzero2022/Design_Pattern.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -49,6 +64,18 @@
       <option name="presentableId" value="Default" />
       <updated>1693817897945</updated>
     </task>
+    <task id="LOCAL-00001" summary="工厂模式">
+      <created>1693819595305</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1693819595305</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="工厂模式" />
+    <option name="LAST_COMMIT_MESSAGE" value="工厂模式" />
   </component>
 </project>
