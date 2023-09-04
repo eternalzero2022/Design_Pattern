@@ -40,6 +40,7 @@ class Controller2 {
 // 实际演示使用
 class ControllerTest {
     private static ControllerTest instance;
+    //一个存放物品的列表，在获取该实例时由于为单例模式，故访问的一直是同一个列表
      public ArrayList<Integer> list = new ArrayList<>();
 
     private ControllerTest() {
@@ -57,9 +58,11 @@ class ControllerTest {
 public class Singleton {
     public static void main(String[] args)
     {
+        //获取实例，并添加内容
         ControllerTest.GetInstance().list.add(1);
         System.out.println(ControllerTest.GetInstance().list.size());
         ControllerTest.GetInstance().list.add(2);
         System.out.println(ControllerTest.GetInstance().list.size());
+        //两次添加都为同一个列表进行添加
     }
 }
