@@ -5,12 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a2876de-0399-4745-ab01-365eacef3237" name="变更" comment="工厂模式">
-      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/Abstract Factory Pattern.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../抽象工厂模式/Abstract Factory Pattern/AbstractFactoryPattern.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
