@@ -277,22 +277,11 @@ public class BuilderPattern
 {
     public static void main(String[] args) {
         // 创建一个建造者对象
-        Builder builder = new Builder();
-
-        // 创建不同的仓库组合
-        Package tableWithBox = builder.TableWithBox();
-        Package allPot = builder.AllPot();
-        Package allIn = builder.AllIn();
-
-        // 打印仓库详情
-        System.out.println("仓库1的详情：");
-        tableWithBox.GetDetails();
-
-        System.out.println("\n仓库2的详情：");
-        allPot.GetDetails();
-
-        System.out.println("\n仓库3的详情：");
-        allIn.GetDetails();
+        new Builder().AllIn().GetDetails();
+        System.out.println();
+        new Builder().TableWithBox().GetDetails();
+        System.out.println();
+        new Builder().AllPot().GetDetails();
     }
 }
 
