@@ -30,6 +30,23 @@ class Wolf implements Prototype
         this.damage = 1000;
     }
 
+    //用于显示当前状态的方法
+    public void showState()
+    {
+        System.out.println(this.name+":");
+        System.out.println("生命值 "+this.health+"/"+this.maxHealth);
+        System.out.println("攻击力 "+this.damage);
+    }
+
+    //定义一个受到伤害的方法
+    public void OnHit(int damage)
+    {
+        this.health -= damage;
+        if(health<0)
+            health = 0;
+    }
+
+
     //为了实现克隆的效果，需要再定义一个克隆的构造方法，传递一个Wolf对象并让新的对象继承该对象的全部或大部分属性
     public Wolf(Wolf wolf)
     {
@@ -42,9 +59,25 @@ class Wolf implements Prototype
 
     //实现克隆接口
     @Override
-    public Object clone() {
+    public Wolf clone() {
         //通过克隆的构造方法来新建一个新的对象并返回，以达到克隆的效果
         return new Wolf(this);
     }
+}
 
+//测试代码
+public class PrototypePattern
+{
+    public static void main(String[] args) {
+        //创建一个狼对象
+        Wolf wolf = new Wolf();
+        wolf.showState();
+        //让狼受到伤害
+        wolf.OnHit(3000);
+        wolf.showState();
+        //通过克隆方法来返回一份新的wolf对象
+        Wolf wolf1 = wolf.clone();
+        wolf1.showState();
+        //发现克隆对象的生命值也与原来对象的当前生命值相同
+    }
 }
