@@ -99,7 +99,7 @@ class TreeNodeLeaf extends TreeNodeBase
     //表示节点ID的字符串，用于精确获取每个节点
     private String treeID;
     //用于存放所有属于这一类的角色的列表。这里存放名字来代表这个角色类
-    private ArrayList<String> gameCharacterNameList;
+    private ArrayList<String> gameCharacterNameList = new ArrayList<String>();
     //一些setter and getter
     public ArrayList<String> getCharacterNameList()
     {
@@ -173,10 +173,16 @@ class TreeNodeLink
 //定义一个角色类，不同的角色有不同的属性
 abstract class GameCharacter
 {
-    public static String name;
+    public String name;
     //命途与属性
-    public static Paths path;
-    public static CombatTypes combatType;
+    public Paths path;
+    public CombatTypes combatType;
+    public GameCharacter(String name,Paths path,CombatTypes combatType)
+    {
+        this.name = name;
+        this.path = path;
+        this.combatType = combatType;
+    }
 }
 //表示角色命途的枚举类
 enum Paths
@@ -225,7 +231,7 @@ class PathFilter extends Filter
     {
         try
         {
-            return ((Paths) (EngineConfig.CharacterHashMap.get(characterName).getDeclaredField("path").get(null))).toString();
+            return (EngineConfig.CharacterHashMap.get(characterName).path.toString());
         }
         catch (Exception e)
         {
@@ -243,7 +249,7 @@ class CombatTypeFilter extends Filter
     {
         try
         {
-            return ((Paths) (EngineConfig.CharacterHashMap.get(characterName).getDeclaredField("combatType").get(null))).toString();
+            return ((EngineConfig.CharacterHashMap.get(characterName).combatType).toString());
         }
         catch (Exception e)
         {
@@ -255,23 +261,23 @@ class CombatTypeFilter extends Filter
 //是时候开始编写最终引擎了，定义一个可以遍历整个树并最终达到效果的运行引擎类
 interface IEngine
 {
-    public boolean Process(Class characterClass,TreeRich treeRich);
+    public boolean Process(GameCharacter character,TreeRich treeRich);
 }
 
 //定义一个引擎类的配置类，用于存放一些引擎类会用到的成员变量，引擎类只需继承此类
 class EngineConfig
 {
     static HashMap<String,Filter> filterHashMap;
-    static HashMap<String,Class> CharacterHashMap;
+    static HashMap<String,GameCharacter> CharacterHashMap;
     //在静态代码块中初始化hashmap
     static
     {
         filterHashMap = new HashMap<String,Filter>();
-        CharacterHashMap = new HashMap<String,Class>();
+        CharacterHashMap = new HashMap<String,GameCharacter>();
         filterHashMap.put("PathFilter",new PathFilter());
         filterHashMap.put("CombatTypeFilter",new CombatTypeFilter());
-        CharacterHashMap.put("Seele",Seele.class);
-        CharacterHashMap.put("DanHeng_ImbibitorLunae",DanHeng_ImbibitorLunae.class);
+        CharacterHashMap.put("希儿",new Seele());
+        CharacterHashMap.put("丹恒·饮月",new DanHeng_ImbibitorLunae());
     }
 }
 
@@ -279,19 +285,9 @@ class Engine extends EngineConfig implements IEngine
 {
     //对一个角色类进行归类
     @Override
-    public boolean Process(Class characterClass,TreeRich treeRich)
+    public boolean Process(GameCharacter character,TreeRich treeRich)
     {
-        String characterName;
-        try
-        {
-            characterClass.newInstance();
-            characterName =(String) (characterClass.getDeclaredField("name").get(null));
-        }
-        catch (Exception e)
-        {
-            System.out.println("刚开始就失败了");
-            return false;
-        }
+        String characterName = character.name;
         TreeNodeBase rootNode = treeRich.getRootNode();
         //定义一个表示当前节点的变量
         TreeNodeBase nowNode;
@@ -304,8 +300,8 @@ class Engine extends EngineConfig implements IEngine
         }
         try
         {
-            ((TreeNodeLeaf)nowNode).getCharacterNameList().add((String) characterClass.getDeclaredField("name").get((null)));
-            System.out.println((String) characterClass.getDeclaredField("name").get((null)) + "已被成功归类");
+            ((TreeNodeLeaf)nowNode).getCharacterNameList().add(characterName);
+            System.out.println(characterName + "已被成功归类");
             return true;
         }
         catch (Exception e)
@@ -321,28 +317,19 @@ class Engine extends EngineConfig implements IEngine
 //定义两个具体的角色类
 class Seele extends GameCharacter
 {
-    static String name;
-    static Paths path;
-    static CombatTypes combatType;
-    static
+    public Seele()
     {
-        name = "希儿";
-        path = Paths.THEHUNT;
-        combatType = CombatTypes.QUANTUM;
+        super("希儿",Paths.THEHUNT,CombatTypes.QUANTUM);
     }
 }
 
 class DanHeng_ImbibitorLunae extends GameCharacter
 {
-    static String name;
-    static Paths path;
-    static CombatTypes combatType;
-    static
+    public DanHeng_ImbibitorLunae()
     {
-        name = "丹恒·饮月";
-        path = Paths.DESTRUCTION;
-        combatType = CombatTypes.IMAGINARY;
+        super("丹恒·饮月",Paths.DESTRUCTION,CombatTypes.IMAGINARY);
     }
+
 }
 
 
@@ -359,12 +346,16 @@ public class CompositePattern
         TreeNodeLink link1 = new TreeNodeLink();
         link1.setNodeFrom(node0);
         link1.setRuleFunction((String a)->{
+            if(a.equals("THEHUNT"))
+                System.out.println("命途：巡猎");
             return a.equals("THEHUNT");
         });
 
         TreeNodeLink link2 = new TreeNodeLink();
         link2.setNodeFrom(node0);
         link2.setRuleFunction((String a)->{
+            if(a.equals("DESTRUCTION"))
+                System.out.println("命途：毁灭");
             return a.equals("DESTRUCTION");
         });
 
@@ -376,7 +367,7 @@ public class CompositePattern
         TreeNodeBase node1 = new TreeNodeChild();
         TreeNodeBase node2 = new TreeNodeChild();
         ((TreeNodeChild) node1).setFilterNeedName("CombatTypeFilter");
-        ((TreeNodeChild) node1).setFilterNeedName("CombatTypeFilter");
+        ((TreeNodeChild) node2).setFilterNeedName("CombatTypeFilter");
         link1.setNodeTo(node1);
         link2.setNodeTo(node2);
 
@@ -389,15 +380,23 @@ public class CompositePattern
         link21.setNodeFrom(node2);
         link22.setNodeFrom(node2);
         link11.setRuleFunction((String a)->{
+            if(a.equals("QUANTUM"))
+                System.out.println("属性：量子");
             return a.equals("QUANTUM");
         });
-        link11.setRuleFunction((String a)->{
+        link12.setRuleFunction((String a)->{
+            if(a.equals("IMAGINARY"))
+                System.out.println("属性：虚数");
             return a.equals("IMAGINARY");
         });
-        link11.setRuleFunction((String a)->{
+        link21.setRuleFunction((String a)->{
+            if(a.equals("QUANTUM"))
+                System.out.println("属性：量子");
             return a.equals("QUANTUM");
         });
-        link11.setRuleFunction((String a)->{
+        link22.setRuleFunction((String a)->{
+            if(a.equals("IMAGINARY"))
+                System.out.println("属性：虚数");
             return a.equals("IMAGINARY");
         });
         ArrayList<TreeNodeLink> linkList1 = new ArrayList<TreeNodeLink>();
@@ -418,7 +417,9 @@ public class CompositePattern
         link21.setNodeTo(node21);
         link22.setNodeTo(node22);
 
-        new Engine().Process(Seele.class,treeRich);
+
+        new Engine().Process(new Seele(),treeRich);
+        new Engine().Process(new DanHeng_ImbibitorLunae(),treeRich);
     }
 }
 
