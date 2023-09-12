@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.ArrayList;
 
-//先创建一个表示节点类型（树的根节点还是子节点还是叶节点）
+//先创建一个表示节点类型（树的子节点还是叶节点）
 enum TreeType
 {
     ROOT,
@@ -129,7 +129,7 @@ class TreeRich
     }
 }
 
-//定义一个函数式接口
+//定义一个函数式接口，用于为他赋予lambda值
 interface RuleFunction
 {
     boolean check(String matterValue);
@@ -267,7 +267,9 @@ interface IEngine
 //定义一个引擎类的配置类，用于存放一些引擎类会用到的成员变量，引擎类只需继承此类
 class EngineConfig
 {
+    //用于通过一个字符串寻找到指定的过滤器的map表
     static HashMap<String,Filter> filterHashMap;
+    //用于通过一个字符串寻找到指定的角色对象的map表
     static HashMap<String,GameCharacter> CharacterHashMap;
     //在静态代码块中初始化hashmap
     static
@@ -283,10 +285,11 @@ class EngineConfig
 
 class Engine extends EngineConfig implements IEngine
 {
-    //对一个角色类进行归类
+    //对一个角色类进行归类的总方法
     @Override
     public boolean Process(GameCharacter character,TreeRich treeRich)
     {
+        //获取角色名称
         String characterName = character.name;
         TreeNodeBase rootNode = treeRich.getRootNode();
         //定义一个表示当前节点的变量
@@ -298,6 +301,7 @@ class Engine extends EngineConfig implements IEngine
             Filter filter = filterHashMap.get(nowNode.getFilterNeedName());
             nowNode = filter.filter(((TreeNodeChild)nowNode).getTreeNodeLinkList(),characterName);
         }
+        //尝试为其进行归类
         try
         {
             ((TreeNodeLeaf)nowNode).getCharacterNameList().add(characterName);
